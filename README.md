@@ -1,5 +1,5 @@
 # scratch
-Scratch space for practicing the craft
+Scratch space for practicing JavaScript and TypeScript.
 
 This project uses TypeScript. To run, compile with:
 ```
