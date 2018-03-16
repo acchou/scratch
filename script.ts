@@ -59,7 +59,10 @@ function isVisible(elem: Element) {
     );
 }
 
-function preloadImages(sources: string[], callback: (images: HTMLImageElement[]) => void) {
+function preloadImages(
+    sources: string[],
+    callback: (images: HTMLImageElement[]) => void
+) {
     let images = new Array(sources.length);
     let nLoaded = 0;
     function onLoad() {
@@ -123,7 +126,8 @@ window.addEventListener("load", () => {
             .slice(1)
             .sort(
                 (rowA, rowB) =>
-                    rowA.cells[sortColumn].textContent! > rowB.cells[sortColumn].textContent!
+                    rowA.cells[sortColumn].textContent! >
+                    rowB.cells[sortColumn].textContent!
                         ? 1
                         : -1
             );
@@ -356,7 +360,9 @@ window.addEventListener("load", () => {
     let n = 0;
     function clickmeHandler(event: MouseEvent) {
         alert(
-            `${event.type} at ${event.currentTarget} Coordinates: ${event.clientX}, ${event.clientY}`
+            `${event.type} at ${event.currentTarget} Coordinates: ${event.clientX}, ${
+                event.clientY
+            }`
         );
         clickmeButton.insertAdjacentText("afterend", `clicked ${n} times`);
     }
@@ -382,8 +388,10 @@ window.addEventListener("load", () => {
     fieldClick.addEventListener("click", function(event) {
         let ballClick = document.getElementById("ballClick")!;
         let fieldRect = fieldClick.getBoundingClientRect()!;
-        let x = event.clientX - fieldRect.left - field.clientLeft - ballClick.clientWidth / 2;
-        let y = event.clientY - fieldRect.top - field.clientTop - ballClick.clientHeight / 2;
+        let x =
+            event.clientX - fieldRect.left - field.clientLeft - ballClick.clientWidth / 2;
+        let y =
+            event.clientY - fieldRect.top - field.clientTop - ballClick.clientHeight / 2;
         x = Math.max(x, 0);
         x = Math.min(x, fieldClick.clientWidth - ballClick.clientWidth);
 
@@ -617,7 +625,10 @@ window.addEventListener("load", () => {
         enterDropTarget: (elem: HTMLElement) => void;
     }
 
-    function createDraggableEventHandler({ leaveDropTarget, enterDropTarget }: DraggableDelegate) {
+    function createDraggableEventHandler({
+        leaveDropTarget,
+        enterDropTarget
+    }: DraggableDelegate) {
         let currentDropTarget: HTMLElement | undefined;
 
         return function(event: MouseEvent) {
@@ -643,7 +654,10 @@ window.addEventListener("load", () => {
                 moveTarget(event.pageX, event.pageY);
 
                 target.hidden = true;
-                let mouseOverElem = document.elementFromPoint(event.clientX, event.clientY);
+                let mouseOverElem = document.elementFromPoint(
+                    event.clientX,
+                    event.clientY
+                );
                 target.hidden = false;
 
                 if (currentDropTarget != mouseOverElem) {
@@ -679,7 +693,10 @@ window.addEventListener("load", () => {
             return false;
         };
 
-        element.addEventListener("mousedown", createDraggableEventHandler(draggableCallbacks));
+        element.addEventListener(
+            "mousedown",
+            createDraggableEventHandler(draggableCallbacks)
+        );
     }
 
     let ballDrag = document.getElementById("ballDrag") as HTMLElement;
@@ -836,7 +853,9 @@ window.addEventListener("load", () => {
     // Load images on demand
     //
 
-    let images = document.querySelectorAll("img[data-src]") as NodeListOf<HTMLImageElement>;
+    let images = document.querySelectorAll("img[data-src]") as NodeListOf<
+        HTMLImageElement
+    >;
     for (let image of images) {
         function imageLoader() {
             if (isVisible(image)) {
@@ -909,7 +928,10 @@ window.addEventListener("load", () => {
             moneyBefore.textContent = "$0";
         }
 
-        let multiple = Math.pow(1 + Number(interest.value) / 100, Number(months.value) / 12);
+        let multiple = Math.pow(
+            1 + Number(interest.value) / 100,
+            Number(months.value) / 12
+        );
         if (multiple > 0) {
             let after = Math.round(before * multiple);
             moneyAfter.textContent = "$" + after;
@@ -971,7 +993,7 @@ window.addEventListener("load", () => {
 
     let formButton = document.getElementById("modal-form-button") as HTMLButtonElement;
     formButton.addEventListener("click", () =>
-        showPrompt("Hi there", (value: string) => alert("you typed " + value))
+        showPrompt("Hi there", (value: string | null) => alert("you typed " + value))
     );
 
     let flyjet = document.getElementById("flyjet") as HTMLElement;
@@ -1010,10 +1032,16 @@ window.addEventListener("load", () => {
 
     let circleExample = document.getElementById("circleExample") as HTMLElement;
     let circleButton = document.getElementById("circleButton") as HTMLElement;
-    circleButton.addEventListener("click", () => showCircle(circleExample, 200, 200, 100));
+    circleButton.addEventListener("click", () =>
+        showCircle(circleExample, 200, 200, 100)
+    );
 
-    let circleExampleCallback = document.getElementById("circleExampleCallback") as HTMLElement;
-    let circleButtonCallback = document.getElementById("circleButtonCallback") as HTMLElement;
+    let circleExampleCallback = document.getElementById(
+        "circleExampleCallback"
+    ) as HTMLElement;
+    let circleButtonCallback = document.getElementById(
+        "circleButtonCallback"
+    ) as HTMLElement;
     circleButtonCallback.addEventListener("click", () =>
         showCircle(circleExampleCallback, 200, 200, 100, div => {
             div.classList.add("circleMessage");
@@ -1024,7 +1052,12 @@ window.addEventListener("load", () => {
     //
     // showCircle with promises instead of callbacks
     //
-    function showCirclePromise(inElem: HTMLElement, cx: number, cy: number, radius: number) {
+    function showCirclePromise(
+        inElem: HTMLElement,
+        cx: number,
+        cy: number,
+        radius: number
+    ) {
         let circle = document.createElement("div");
         circle.classList.add("circle");
         inElem.appendChild(circle);
@@ -1043,13 +1076,19 @@ window.addEventListener("load", () => {
         });
     }
 
-    let circleExamplePromise = document.getElementById("circleExamplePromise") as HTMLElement;
-    let circleButtonPromise = document.getElementById("circleButtonPromise") as HTMLElement;
+    let circleExamplePromise = document.getElementById(
+        "circleExamplePromise"
+    ) as HTMLElement;
+    let circleButtonPromise = document.getElementById(
+        "circleButtonPromise"
+    ) as HTMLElement;
     circleButtonPromise.addEventListener("click", () =>
-        showCirclePromise(circleExamplePromise, 200, 200, 100).then((div: HTMLElement) => {
-            div.classList.add("circleMessage");
-            div.append("Hello I'm done!");
-        })
+        showCirclePromise(circleExamplePromise, 200, 200, 100).then(
+            (div: HTMLElement) => {
+                div.classList.add("circleMessage");
+                div.append("Hello I'm done!");
+            }
+        )
     );
 
     //
@@ -1060,7 +1099,9 @@ window.addEventListener("load", () => {
     }
 
     let delayButton = document.getElementById("delayButton") as HTMLButtonElement;
-    delayButton.addEventListener("click", () => delay(3000).then(() => alert("runs after 3s")));
+    delayButton.addEventListener("click", () =>
+        delay(3000).then(() => alert("runs after 3s"))
+    );
 
     //
     // async / await examples
@@ -1123,7 +1164,9 @@ window.addEventListener("load", () => {
     // Github profile example
     //
 
-    let githubUserName = document.getElementById("githubUserNameInput") as HTMLInputElement;
+    let githubUserName = document.getElementById(
+        "githubUserNameInput"
+    ) as HTMLInputElement;
 
     interface GithubUser {
         login: string;
@@ -1178,7 +1221,9 @@ window.addEventListener("load", () => {
 
     async function fetchGitHubProfile(userName: string) {
         try {
-            let user = <GithubUser>await loadJson2(`https://api.github.com/users/${userName}`);
+            let user = <GithubUser>await loadJson2(
+                `https://api.github.com/users/${userName}`
+            );
             errorMessage.textContent = "";
             avatar.src = user.avatar_url;
             githubName.textContent = user.name;
@@ -1193,7 +1238,9 @@ window.addEventListener("load", () => {
         }
     }
 
-    githubUserName.addEventListener("input", event => fetchGitHubProfile(githubUserName.value));
+    githubUserName.addEventListener("input", event =>
+        fetchGitHubProfile(githubUserName.value)
+    );
 
     //let githubUser = demoGithubUser();
 });
@@ -1223,7 +1270,9 @@ function testLoaded(images: HTMLImageElement[]) {
         widthSum += img.width;
     }
     preloadElement.append(...images);
-    let widthSumElem = document.createTextNode("widthSum = " + widthSum + " (should be 300)");
+    let widthSumElem = document.createTextNode(
+        "widthSum = " + widthSum + " (should be 300)"
+    );
     preloadElement.append(widthSumElem);
 }
 
